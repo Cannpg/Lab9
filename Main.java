@@ -1,68 +1,59 @@
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
+import java.io.*; 
 
 class Main {
-  public static void main(String[] args) {
-    
-    ArrayList<Person> al = new ArrayList<Person>();
-    ArrayList<Person> people = new ArrayList<Person>();
-    
-    Person p1 = new Person("Parker", 21, "Vermillion");
-    Person p2 = new Person("A", 87, "Pink");
-    Person p3 = new Person("B", 13, "Yellow");
-    Person p4 = new Person("C", 55, "Black");
-    Person p5 = new Person("D", 4, "Green");
+  public static void main(String[] args){ 
+  ArrayList<Person> people = new ArrayList<Person>();
 
-    al.add(p1);
-    al.add(p2);
-    al.add(p3);
-    al.add(p4);
-    al.add(p5);
+    Person p1 = new Person("Parker", 21, "vermillion");
+    Person p2 = new Person("A", 87, "pink");
+    Person p3 = new Person("B", 13, "yellow");
+    Person p4 = new Person("C", 55, "black");
+    Person p5 = new Person("D", 4, "green");
 
-    try{
-        FileWriter myFile;
-        myFile = new FileWriter("questions.txt");
-        BufferedWriter writer = new BufferedWriter(myFile);
+    people.add(p1);
+    people.add(p2);
+    people.add(p3);
+    people.add(p4);
+    people.add(p5);
 
-        for(int i = 0; i<al.size(); i++){
-            writer.write(al.get(i).getName());
-          writer.newLine();
-            writer.write(Integer.toString(al.get(i).getAge()));
-          writer.newLine();
-            writer.write(al.get(i).getColor());
-          writer.newLine();
-        }
-
-      writer.flush();
-      }
-    catch (IOException exception) {
-      System.out.println("An error occurred: " + exception);
-    }
-
-    try{
-        FileReader myFile;
-        myFile = new FileReader("data.txt");
-        BufferedReader reader = new BufferedReader(myFile);
-
-        while (reader.ready()) {
-          String name = reader.readLine();
-          int age = Integer.parseInt(reader.readLine());
-          String color = reader.readLine();
-
-          Person p = new Person(name, age, color);
-
-          people.add(p);
-        }
-
-        reader.close();
-      }
-    catch (IOException exception) {
-      System.out.println("An error occurred: " + exception);
-    }
-
-    for(int i = 0; i < people.size(); i++){
+  try {
+   FileWriter myFile = new FileWriter("data.txt"); 
+   BufferedWriter writer = new BufferedWriter(myFile);
+   
+    for(int i = 0; i<people.size(); i++){
       Person object = people.get(i);
-      System.out.printf("'%-10s' %n", object.name, object.age, object.color);
+      writer.write(object.name);
+      writer.newLine();
+      writer.write(Integer.toString(object.age));
+      writer.newLine();
+      writer.write(object.color);
+      writer.newLine();
     }
+   writer.flush();
+   writer.close();
+  }
+  catch (IOException e){
+    System.out.println("An error occured: " + e);
+  }
+  try {
+    FileReader myFile = new FileReader("data.txt");
+    BufferedReader reader = new BufferedReader(myFile);
+
+    while (reader.ready()){
+      String name = reader.readLine();
+      int age = Integer.parseInt(reader.readLine());
+      String color = reader.readLine();
+    }
+    reader.close();
+  }
+  catch (IOException exception){
+    System.out.println("An error occured: " + exception);
+  }
+  
+  for(int i = 0; i <people.size(); i++){
+    Person object = people.get(i);
+    System.out.printf("%-10s %-10s %-10s %n", object.name, object.age, object.color);
+  }
   }
 }
